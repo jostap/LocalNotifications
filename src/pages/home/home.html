@@ -1,18 +1,33 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Notifications</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label>Notify me at: </ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="notifyTime" (ionChange)="timeChange($event)"></ion-datetime>
+    </ion-item>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+    <ion-item>
+      <ion-label>on the following days:</ion-label>
+    </ion-item>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+    <ion-item *ngFor="let day of days">
+      <ion-label>{{ day.title }}</ion-label>
+      <ion-checkbox [(ngModel)]="day.checked" color="primary"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
+
 </ion-content>
+
+<ion-footer>
+  <button (click)="addNotifications()" ion-button color="primary" full>Schedule</button>
+  <button (click)="cancelAll()" ion-button color="danger" full>Leave me alone</button>
+</ion-footer>
